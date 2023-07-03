@@ -1,5 +1,3 @@
-use chrono::Datelike;
-
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Hotels {
     Lakewood,

@@ -29,11 +29,7 @@ pub fn process_line(s: &str) -> ParsedInput {
             day: 1,
             month: "jan".to_string(),
             year: 2000,
-            is_weekday: match day {
-                "sat" => false,
-                "sun" => false,
-                _ => true,
-            },
+            is_weekday: !matches!(day, "sat" | "sun"),
         }
     });
     ParsedInput {

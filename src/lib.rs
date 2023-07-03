@@ -1,6 +1,6 @@
 use std::fs::read_to_string;
 
-use model::{Date, Hotel, Hotels, ParsedInput, WeekdayRate, WeekendRate};
+use model::{Hotel, Hotels, ParsedInput, WeekdayRate, WeekendRate};
 use process_input::process_line;
 
 pub mod model;
@@ -60,13 +60,9 @@ pub fn get_quote_for_hotel(hotel: Hotel, input: &ParsedInput) -> i32 {
 }
 
 pub fn get_cheapest_option(input: ParsedInput) -> Hotel {
-    let result: Vec<(Hotel, i32)> = get_available_hotels()
+    get_available_hotels()
         .into_iter()
         .map(|hotel| (hotel, get_quote_for_hotel(hotel, &input)))
-        .collect();
-
-    *result
-        .iter()
         .reduce(|acc, pair| match acc.1 == pair.1 {
             true => {
                 if acc.0.rating > pair.0.rating {
