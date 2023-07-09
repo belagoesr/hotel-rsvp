@@ -1,6 +1,7 @@
 use crate::model::{
+    customer::{Customer, CustomerType},
     days::{Date, Day, Month},
-    *,
+    ParsedInput,
 };
 
 pub fn process_line(s: &str) -> ParsedInput {
@@ -91,7 +92,7 @@ pub fn process_line(s: &str) -> ParsedInput {
 #[cfg(test)]
 mod tests {
     use super::process_line;
-    use crate::model::CustomerType;
+    use crate::model::customer::CustomerType;
 
     #[test]
     fn process_line_weekdays_customer_regular() {

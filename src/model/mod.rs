@@ -1,18 +1,9 @@
+pub mod customer;
 pub mod days;
 pub mod hotels;
 
+use crate::model::customer::Customer;
 use crate::model::days::Date;
-
-#[derive(Debug, Copy, Clone, PartialEq)]
-pub enum CustomerType {
-    Regular,
-    Rewards,
-}
-
-#[derive(Debug, PartialEq)]
-pub struct Customer {
-    pub customer_type: CustomerType,
-}
 
 #[derive(Debug, PartialEq)]
 pub struct ParsedInput {

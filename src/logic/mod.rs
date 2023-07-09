@@ -84,7 +84,7 @@ pub fn get_available_hotels() -> Vec<Hotel> {
         .collect()
 }
 
-pub fn get_cheapest_hotels_for_input() -> Vec<Hotels> {
+pub async fn get_cheapest_hotels_for_input() -> Vec<Hotels> {
     let filename = "input.txt";
     let mut result = Vec::new();
     for line in read_to_string(filename).unwrap().lines() {
@@ -98,19 +98,21 @@ pub fn get_cheapest_hotels_for_input() -> Vec<Hotels> {
 #[cfg(test)]
 mod tests {
     use crate::{
-        logic::get_cheapest_hotels_for_input,
+        logic::{
+            get_available_hotels, get_cheapest_hotels_for_input, get_hotel_data,
+            get_quote_for_hotel,
+        },
         model::{
+            customer::{Customer, CustomerType},
             days::{Date, Day, Month},
             hotels::Hotels,
-            Customer, CustomerType, ParsedInput,
+            ParsedInput,
         },
     };
 
-    use super::{get_available_hotels, get_hotel_data, get_quote_for_hotel};
-
-    #[test]
-    fn check_get_cheapest_hotels_for_input() {
-        let result = get_cheapest_hotels_for_input();
+    #[tokio::test]
+    async fn check_get_cheapest_hotels_for_input() {
+        let result = get_cheapest_hotels_for_input().await;
         assert_eq!(result.len(), 3);
         assert_eq!(result[0], Hotels::Lakewood);
         assert_eq!(result[1], Hotels::Bridgewood);

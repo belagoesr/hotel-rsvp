@@ -1,6 +1,5 @@
 #[derive(Debug, Clone, PartialEq)]
 pub struct Date {
-    // TODO: swap for a specific datetime type?
     pub day: Day,
     pub month: Month,
     pub year: i32,
