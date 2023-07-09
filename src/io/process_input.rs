@@ -1,5 +1,7 @@
-// TODO: There must be a way to supply the application with the input data via text file.
-use crate::model::{*, days::Date};
+use crate::model::{
+    days::{Date, Day, Month},
+    *,
+};
 
 pub fn process_line(s: &str) -> ParsedInput {
     let splitted: Vec<&str> = s.split(':').collect();
@@ -23,13 +25,61 @@ pub fn process_line(s: &str) -> ParsedInput {
     let dates = splitted[1].split(',').map(|s| {
         let start_bytes = s.find('(').unwrap_or(0);
         let end_bytes = s.find(')').unwrap_or(s.len());
-        let day = &s[start_bytes + 1..end_bytes];
+        let day_name = &s[start_bytes + 1..end_bytes];
+        let day = match day_name {
+            "mon" => Day::Monday,
+            "tues" => Day::Tuesday,
+            "wed" => Day::Wednesday,
+            "thur" => Day::Thursday,
+            "fri" => Day::Friday,
+            "sat" => Day::Saturday,
+            "sun" => Day::Sunday,
+            _ => panic!("Input not valid - wrong day"),
+        };
+
+        let mut month = Month::January;
+        if s.contains("Jan") {
+            month = Month::January
+        }
+        if s.contains("Feb") {
+            month = Month::February
+        }
+        if s.contains("Mar") {
+            month = Month::March
+        }
+        if s.contains("Apr") {
+            month = Month::April
+        }
+        if s.contains("May") {
+            month = Month::May
+        }
+        if s.contains("Jun") {
+            month = Month::June
+        }
+        if s.contains("Jul") {
+            month = Month::July
+        }
+        if s.contains("Aug") {
+            month = Month::August
+        }
+        if s.contains("Sep") {
+            month = Month::September
+        }
+        if s.contains("Oct") {
+            month = Month::October
+        }
+        if s.contains("Nov") {
+            month = Month::November
+        }
+        if s.contains("Dec") {
+            month = Month::December
+        }
 
         Date {
-            day: 1,
-            month: "jan".to_string(),
-            year: 2000,
-            is_weekday: !matches!(day, "sat" | "sun"),
+            day,
+            month,
+            year: 2000, // TODO: fill year
+            is_weekday: !matches!(day, Day::Saturday | Day::Sunday),
         }
     });
     ParsedInput {
@@ -41,7 +91,7 @@ pub fn process_line(s: &str) -> ParsedInput {
 #[cfg(test)]
 mod tests {
     use super::process_line;
-    use crate::model::{Customer, CustomerType, hotels::Hotels};
+    use crate::model::CustomerType;
 
     #[test]
     fn process_line_weekdays_customer_regular() {

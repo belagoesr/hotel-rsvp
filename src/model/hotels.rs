@@ -1,4 +1,4 @@
-use crate::model::{days::Date, Customer, CustomerType};
+use crate::model::{days::Date, CustomerType};
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Hotels {
