@@ -1,12 +1,12 @@
 use std::fs::read_to_string;
 
-use model::{Hotel, Hotels, ParsedInput, WeekdayRate, WeekendRate};
-use process_input::process_line;
+use io::process_input::process_line;
+use model::{
+    hotels::{Hotel, Hotels, WeekdayRate, WeekendRate},
+    ParsedInput,
+};
 
-pub mod model;
-pub mod process_input;
-
-pub fn get_hotel_data(hotel: Hotels) -> Hotel {
+fn get_hotel_data(hotel: Hotels) -> Hotel {
     match hotel {
         Hotels::Lakewood => Hotel {
             hotel_name: Hotels::Lakewood,
@@ -96,7 +96,7 @@ pub fn get_hotels_for_input() -> Vec<Hotels> {
 
 #[cfg(test)]
 mod tests {
-    use crate::{get_hotels_for_input, model::Hotels};
+    use crate::{get_hotels_for_input, model::hotels::Hotels};
 
     #[test]
     fn check_get_hotels_for_input() {

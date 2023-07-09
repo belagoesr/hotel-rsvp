@@ -1,5 +1,5 @@
 // TODO: There must be a way to supply the application with the input data via text file.
-use crate::model::*;
+use crate::model::{*, days::Date};
 
 pub fn process_line(s: &str) -> ParsedInput {
     let splitted: Vec<&str> = s.split(':').collect();
@@ -41,7 +41,7 @@ pub fn process_line(s: &str) -> ParsedInput {
 #[cfg(test)]
 mod tests {
     use super::process_line;
-    use crate::model::{Customer, CustomerType, Hotels};
+    use crate::model::{Customer, CustomerType, hotels::Hotels};
 
     #[test]
     fn process_line_weekdays_customer_regular() {

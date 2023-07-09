@@ -1,3 +1,5 @@
+use crate::model::{days::Date, Customer, CustomerType};
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Hotels {
     Lakewood,
@@ -5,17 +7,12 @@ pub enum Hotels {
     Ridgewood,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq)]
-pub enum CustomerType {
-    Regular,
-    Rewards,
-}
-
 #[derive(Debug, Clone, Copy)]
 pub struct WeekdayRate {
     pub regular: i32,
     pub rewards: i32,
 }
+
 #[derive(Debug, Clone, Copy)]
 pub struct WeekendRate {
     pub regular: i32,
@@ -51,23 +48,4 @@ impl Hotel {
             self.get_weekend_rate_for_customer(customer)
         }
     }
-}
-
-#[derive(Debug, PartialEq)]
-pub struct Customer {
-    pub customer_type: CustomerType,
-}
-
-#[derive(Debug, Clone, PartialEq)]
-pub struct Date {
-    // TODO: swap for a specific datetime type?
-    pub day: i32,
-    pub month: String,
-    pub year: i32,
-    pub is_weekday: bool,
-}
-#[derive(Debug, PartialEq)]
-pub struct ParsedInput {
-    pub customer: Customer,
-    pub date_range: Vec<Date>,
 }
